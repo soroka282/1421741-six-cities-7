@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Роман Сорокин](https://up.htmlacademy.ru/react/7/user/1421741).
-* Наставник: [Виктор Кан] (https://htmlacademy.ru/profile/viktorkan).
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
 ---
 
