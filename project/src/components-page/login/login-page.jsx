@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../header/header';
+import Header from '../../components/header/header.jsx';
 
-function SignInScreen() {
+function SignInPage() {
   return (
     <div>
       <div style={{display: 'none'}}>
@@ -41,4 +41,4 @@ function SignInScreen() {
   );
 }
 
-export default SignInScreen;
+export default SignInPage;

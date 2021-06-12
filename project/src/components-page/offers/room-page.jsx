@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../header/header';
+import Header from '../../components/header/header.jsx';
 
-function RoomScreen() {
+function RoomPage() {
   return (
     <div>
       <div style={{display: 'none'}}>
@@ -315,4 +315,4 @@ function RoomScreen() {
   );
 }
 
-export default RoomScreen;
+export default RoomPage;

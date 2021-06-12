@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../header/header';
+import Header from '../../components/header/header.jsx';
 
-function FavoriteScreen() {
+function FavoritePage() {
   return(
     <div>
       <div style={{display: 'none'}}>
@@ -147,4 +147,4 @@ function FavoriteScreen() {
   );
 }
 
-export default FavoriteScreen;
+export default FavoritePage;

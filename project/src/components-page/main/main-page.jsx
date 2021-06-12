@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OfferCard from '../offer-item/offer-card';
-import Header from '../header/header';
+import OfferCard from '../../components/offer-item/offer-card';
+import Header from '../../components/header/header.jsx';
 
-function MainScreen(props) {
+function MainPage(props) {
 
   const {offers} = props;
 
@@ -90,8 +90,8 @@ function MainScreen(props) {
   );
 }
 
-MainScreen.propTypes = {
+MainPage.propTypes = {
   offers: PropTypes.array.isRequired,
 };
 
-export default MainScreen;
+export default MainPage;
