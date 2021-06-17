@@ -2,5 +2,16 @@ export const AppRoute = {
   MAIN: '/',
   LOG_IN: '/login',
   FAVORITES: '/favorites',
-  ROOM: '/offer/:id',
+  ROOM: '/offer/',
+};
+
+export const Type = {
+  OFFER: 'offer',
+  FAVORITE: 'favorite',
+  ROOM: 'room',
+};
+
+export const FormatDate = {
+  MONTH_YEAR: 'MMMM YYYY',
+  DAY_MONTH_YEAR: 'YYYY-MM-DD',
 };

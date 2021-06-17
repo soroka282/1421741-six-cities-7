@@ -9,12 +9,12 @@ import NotFoundPage from '../../components-page/not-found/not-found-page.jsx';
 import {AppRoute} from '../../const.js';
 
 function App(props) {
-  const {data} = props;
+  const {offers, reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage offers={data}/>
+          <MainPage offers={offers}/>
         </Route>
 
         <Route exact path={AppRoute.LOG_IN}>
@@ -22,13 +22,17 @@ function App(props) {
         </Route>
 
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritePage />
+          <FavoritePage offers={offers}/>
         </Route>
 
-        <Route exact path={AppRoute.ROOM}>
-          <RoomPage />
+        <Route exact path={`${AppRoute.ROOM}:id`} render={({match}) => {
+          const id = match.params.id;
+          const filteredOffersById = offers.filter((offerElem) => offerElem.id === Number(id));
+          const [filteredOffer] = filteredOffersById;
+          return <RoomPage filteredOffer={filteredOffer} reviews={reviews} offers={offers}/>;
+        }}
+        >
         </Route>
-
         <Route>
           <NotFoundPage />
         </Route>
@@ -40,7 +44,8 @@ function App(props) {
 }
 
 App.propTypes = {
-  data: PropTypes.array.isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object),
+  offers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default App;

@@ -1,42 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import CardName from  '../../components/card-name/card-name';
+import CardRating from '../../components/card-rating/card-rating';
+import CardPrice from '../../components/card-price/card-price';
+import {CardType} from '../../utils/setting';
+import {Type, AppRoute} from '../../const';
 
-function OfferCard() {
+function OfferCard(props) {
+  const {offer, type} = props;
+  const [ ,setUserChoicePlaceId] = useState('');
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
+    <article className={CardType[type].classNameArticle} data-id={offer.id}
+      onMouseEnter={({target}) => {
+        setUserChoicePlaceId(target.getAttribute('data-id'));
+      }}
+    >
+      {offer.isPremium && CardType[Type.OFFER] === CardType[type] &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+      <div className={CardType[type].classNameImg}>
+        <Link to={`${AppRoute.ROOM}${offer.id}`} offer={offer}>
+          <img className="place-card__image" src={offer.previewImage} width={CardType[type].width} height={CardType[type].height} alt="Place"/>
+        </Link>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="/offer/:id">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place"/>
-        </a>
-      </div>
-      <div className="place-card__info">
-        <div className="place-card__price-wrapper">
-          <div className="place-card__price">
-            <b className="place-card__price-value">&euro;120</b>
-            <span className="place-card__price-text">&#47;&nbsp;night</span>
-          </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
-        </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
-        <h2 className="place-card__name">
-          <a href="/#">Beautiful &amp; luxurious apartment at great location</a>
-        </h2>
-        <p className="place-card__type">Apartment</p>
+      <div className={CardType[type].classNameDiv}>
+        <CardPrice offer={offer} />
+        <CardRating offer={offer} />
+        <CardName offer={offer} />
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
 }
+
+OfferCard.propTypes = {
+  offer: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+};
+
 
 export default OfferCard;
