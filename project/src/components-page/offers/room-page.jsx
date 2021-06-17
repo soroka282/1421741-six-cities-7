@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
-import RoomGallery from '../../components/room-gallery/room-gallery';
+import RoomGalleryList from '../../components/room-gallery-list/room-gallery-list';
 import FormComment from '../../components/form-comment/form-comment';
 import {getRatingPercent} from '../../utils/common';
-import RoomInside from '../../components/room-inside/room-inside';
+import InsideList from '../../components/inside-list/inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearPlace from '../../components/near-place/near-place';
 
@@ -35,9 +35,7 @@ function RoomPage(props) {
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-              <div className="property__gallery">
-                {images.map((image, id) => <RoomGallery image={image} key={id++} /> )}
-              </div>
+              <RoomGalleryList images={images}/>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
@@ -80,9 +78,7 @@ function RoomPage(props) {
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
-                  <ul className="property__inside-list">
-                    {goods.map((good, id) => <RoomInside good={good} key={id++}/>)}
-                  </ul>
+                  <InsideList goods={goods}/>
                 </div>
                 <div className="property__host">
                   <h2 className="property__host-title">Meet the host</h2>

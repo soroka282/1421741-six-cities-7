@@ -27,8 +27,7 @@ function App(props) {
 
         <Route exact path={`${AppRoute.ROOM}:id`} render={({match}) => {
           const id = match.params.id;
-          const filteredOffersById = offers.filter((offerElem) => offerElem.id === Number(id));
-          const [filteredOffer] = filteredOffersById;
+          const filteredOffer = offers.find((offerElem) => offerElem.id === Number(id));
           return <RoomPage filteredOffer={filteredOffer} reviews={reviews} offers={offers}/>;
         }}
         >

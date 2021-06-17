@@ -16,9 +16,11 @@ function FavoriteItem(props) {
           </Link>
         </div>
       </div>
-      <div className="favorites__places">
-        <OfferCard offer={offer} type={Type.FAVORITE}/>
-      </div>
+      <ul className="favorites__places">
+        <li style={{listStyle: 'none'}}>
+          <OfferCard offer={offer} type={Type.FAVORITE}/>
+        </li>
+      </ul>
     </li>
   );
 }

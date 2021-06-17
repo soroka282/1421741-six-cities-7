@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import RatingInput from '../rating-input/rating-input';
+import FormRating from '../form-rating/form-rating';
 
-const RATINGS = [5, 4, 3, 2, 1];
 const MIN_LENGTH = 50;
 
 function FormComment() {
@@ -11,9 +10,7 @@ function FormComment() {
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {RATINGS.map((rating) => <RatingInput rating={rating} key={rating} setUserRating={setUserRating} /> ) }
-      </div>
+      <FormRating setUserRating={setUserRating}/>
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" minLength="50" onChange={({target}) => {
         setUserText(target.value);}}
       />
