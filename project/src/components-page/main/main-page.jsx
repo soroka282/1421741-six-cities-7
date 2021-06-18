@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OfferCard from '../../components/offer-item/offer-card';
 import Header from '../../components/header/header.jsx';
+import OfferList from '../../components/offer-list/offer-list';
 
 function MainPage(props) {
 
@@ -74,10 +74,7 @@ function MainPage(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-
-                  { offers.map((offer) => <OfferCard key={offer.id}/>)}
-                </div>
+                <OfferList offers={offers}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"></section>
@@ -91,7 +88,7 @@ function MainPage(props) {
 }
 
 MainPage.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default MainPage;
