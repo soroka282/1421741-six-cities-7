@@ -4,6 +4,7 @@ import Header from '../../components/header/header.jsx';
 import OfferList from '../../components/offer-list/offer-list';
 import MapCity from '../../components/map/map';
 import {city} from '../../utils/setting';
+
 function MainPage(props) {
   const {offers} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);

@@ -9,24 +9,22 @@ function OfferCard(props) {
   const {offer, type, onListItemHover} = props;
 
   const listItemHoverHandler = (evt) => {
-    onListItemHover(evt.target.getAttribute('data-id'));
+    onListItemHover(offer.id);
   };
 
   return (
-    <article className={CardType[type].classNameArticle} data-id={offer.id}
-      onMouseMove={listItemHoverHandler}
-    >
+    <article className={CardType[type].classNameArticle} onMouseMove={listItemHoverHandler}>
       {offer.isPremium && CardType[Type.OFFER] === CardType[type] &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
       <div className={CardType[type].classNameImg}>
         <Link to={`${AppRoute.ROOM}${offer.id}`} offer={offer}>
-          <img className="place-card__image" data-id={offer.id} onMouseMove={listItemHoverHandler} src={offer.previewImage} width={CardType[type].width} height={CardType[type].height} alt="Place"/>
+          <img className="place-card__image" onMouseMove={listItemHoverHandler} src={offer.previewImage} width={CardType[type].width} height={CardType[type].height} alt="Place"/>
         </Link>
       </div>
-      <div className={CardType[type].classNameDiv} data-id={offer.id} onMouseMove={listItemHoverHandler}>
-        <div className="place-card__price-wrapper" data-id={offer.id} onMouseMove={listItemHoverHandler}>
+      <div className={CardType[type].classNameDiv} onMouseMove={listItemHoverHandler}>
+        <div className="place-card__price-wrapper" onMouseMove={listItemHoverHandler}>
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
@@ -38,16 +36,16 @@ function OfferCard(props) {
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <div className="place-card__rating rating" data-id={offer.id} onMouseMove={listItemHoverHandler}>
+        <div className="place-card__rating rating" onMouseMove={listItemHoverHandler}>
           <div className="place-card__stars rating__stars">
             <span style={{width: `${getRatingPercent(offer.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" data-id={offer.id} onMouseMove={listItemHoverHandler}>
-          <Link to={`${AppRoute.ROOM}${offer.id}`}>{offer.title}</Link>
+        <h2 className="place-card__name" >
+          <Link to={`${AppRoute.ROOM}${offer.id}`} onMouseMove={listItemHoverHandler}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type" data-id={offer.id} onMouseMove={listItemHoverHandler}>{offer.type}</p>
+        <p className="place-card__type" onMouseMove={listItemHoverHandler}>{offer.type}</p>
       </div>
     </article>
   );
