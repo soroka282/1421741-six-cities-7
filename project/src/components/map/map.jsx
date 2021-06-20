@@ -29,6 +29,7 @@ function MapCity(props) {
     });
 
     if (map) {
+      
       points.forEach((point) => {
         L.marker({
           lat: point.location.latitude,
@@ -43,6 +44,7 @@ function MapCity(props) {
           .addTo(map);
       });
     }
+
   }, [map, points, selectedPoint]);
 
   return (
