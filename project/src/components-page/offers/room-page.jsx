@@ -23,6 +23,7 @@ function RoomPage(props) {
     host,
     description,
   } = filteredOffer;
+
   return (
     <div>
       <div style={{display: 'none'}}>

@@ -12,7 +12,6 @@ export const CardType = {
     'classNameImg': 'cities__image-wrapper place-card__image-wrapper',
     'width': '260',
     'height': '200',
-    'tag': 'article',
   },
   'room': {
     'classNameArticle': 'near-places__card place-card',
@@ -21,4 +20,10 @@ export const CardType = {
     'width': '260',
     'height': '200',
   },
+};
+
+export const city = {
+  lat: 52.38333,
+  lng:  4.9,
+  zoom: 12,
 };
