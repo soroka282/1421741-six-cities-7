@@ -10,7 +10,7 @@ const ICON_SIZE = [30, 30];
 const ICON_ANCHOR = [15, 30];
 
 function MapCity(props) {
-  const {city, offers, selectedPoint} = props;
+  const {city, points, selectedPoint} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -29,7 +29,7 @@ function MapCity(props) {
     });
 
     if (map) {
-      offers.forEach((point) => {
+      points.forEach((point) => {
         L.marker({
           lat: point.location.latitude,
           lng: point.location.longitude,
@@ -43,7 +43,7 @@ function MapCity(props) {
           .addTo(map);
       });
     }
-  }, [map, offers, selectedPoint]);
+  }, [map, points, selectedPoint]);
 
   return (
     <div id="map" style={{height: '100%'}} ref={mapRef}></div>
@@ -51,7 +51,7 @@ function MapCity(props) {
 }
 
 MapCity.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
+  points: PropTypes.arrayOf(PropTypes.object),
   city: PropTypes.object,
   selectedPoint: PropTypes.number,
 };

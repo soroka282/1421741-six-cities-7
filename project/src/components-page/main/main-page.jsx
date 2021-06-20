@@ -4,13 +4,10 @@ import Header from '../../components/header/header.jsx';
 import OfferList from '../../components/offer-list/offer-list';
 import MapCity from '../../components/map/map';
 import {city} from '../../utils/setting';
+
 function MainPage(props) {
   const {offers} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
-
-  const onListItemHover = (listItemId) => {
-    setSelectedPoint(Number(listItemId));
-  };
 
   return (
     <section>
@@ -79,11 +76,11 @@ function MainPage(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <OfferList offers={offers} onListItemHover={onListItemHover}/>
+                <OfferList offers={offers} setSelectedPoint={setSelectedPoint}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity offers={offers} city={city} selectedPoint={selectedPoint}/>
+                  <MapCity points={offers} city={city} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>
