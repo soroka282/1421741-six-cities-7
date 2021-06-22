@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
 import RoomGalleryList from '../../components/room-gallery-list/room-gallery-list';
@@ -7,6 +7,10 @@ import {getRatingPercent} from '../../utils/common';
 import InsideList from '../../components/inside-list/inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearPlace from '../../components/near-place/near-place';
+import MapCity from '../../components/map/map';
+import {city} from '../../utils/setting';
+
+const ADDITIONAL_PLACES = 3;
 
 function RoomPage(props) {
   const {filteredOffer, reviews, offers} = props;
@@ -23,6 +27,10 @@ function RoomPage(props) {
     host,
     description,
   } = filteredOffer;
+
+  const offerSliced = offers.slice(0, ADDITIONAL_PLACES);
+
+  const [selectedPoint, setSelectedPoint] = useState(0);
 
   return (
     <div>
@@ -105,13 +113,15 @@ function RoomPage(props) {
                 </section>
               </div>
             </div>
-            <section className="property__map map"></section>
+            <section className="property__map map">
+              <MapCity points={offerSliced} city={city} selectedPoint={selectedPoint}/>
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <NearPlace offers={offers} />
+                <NearPlace offers={offerSliced} setSelectedPoint={setSelectedPoint}/>
               </div>
             </section>
           </div>

@@ -6,14 +6,20 @@ import {CardType} from '../../utils/setting';
 import {Type, AppRoute} from '../../const';
 
 function OfferCard(props) {
-  const {offer, type, onListItemHover} = props;
 
-  const listItemHoverHandler = (evt) => {
-    onListItemHover(offer.id);
+  const {offer, type, setSelectedPoint} = props;
+
+  const listItemHoverHandler = () => {
+    if (!setSelectedPoint) {
+      return;
+    }
+    setSelectedPoint(Number(offer.id));
   };
 
   return (
-    <article className={CardType[type].classNameArticle} onMouseMove={listItemHoverHandler}>
+    <article className={CardType[type].classNameArticle}
+      onMouseMove={listItemHoverHandler}
+    >
       {offer.isPremium && CardType[Type.OFFER] === CardType[type] &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -42,8 +48,8 @@ function OfferCard(props) {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name" >
-          <Link to={`${AppRoute.ROOM}${offer.id}`} onMouseMove={listItemHoverHandler}>{offer.title}</Link>
+        <h2 className="place-card__name" onMouseMove={listItemHoverHandler}>
+          <Link to={`${AppRoute.ROOM}${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type" onMouseMove={listItemHoverHandler}>{offer.type}</p>
       </div>
@@ -54,7 +60,7 @@ function OfferCard(props) {
 OfferCard.propTypes = {
   offer: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
-  onListItemHover: PropTypes.func,
+  setSelectedPoint: PropTypes.func,
 };
 
 
