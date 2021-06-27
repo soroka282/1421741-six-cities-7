@@ -28,7 +28,11 @@ function MapCity(props) {
       iconAnchor: ICON_ANCHOR,
     });
 
+    const layerPoints = L.layerGroup();
+
     if (map) {
+      layerPoints.addTo(map);
+
       points.forEach((point) => {
         L.marker({
           lat: point.location.latitude,
@@ -40,9 +44,13 @@ function MapCity(props) {
             ? iconActive
             : icon,
         })
-          .addTo(map);
+          .addTo(layerPoints);
       });
     }
+    return () => {
+      layerPoints.clearLayers();
+    };
+
   }, [map, points, selectedPoint]);
 
   return (
