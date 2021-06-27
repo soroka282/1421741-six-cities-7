@@ -6,6 +6,7 @@ import {CardType} from '../../utils/setting';
 import {Type, AppRoute} from '../../const';
 
 function OfferCard(props) {
+
   const {offer, type, setSelectedPoint} = props;
 
   const listItemHoverHandler = () => {

@@ -7,6 +7,7 @@ import { AppRoute } from '../../const';
 
 function FavoritePage(props) {
   const {offers} = props;
+
   return(
     <div>
       <div style={{display: 'none'}}>
