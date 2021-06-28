@@ -8,8 +8,10 @@ import {connect} from 'react-redux';
 import {city} from '../../utils/setting';
 
 function MainPage(props) {
-  const {offers, name} = props;
+  const {cityName, offers} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
+
+  const filterOffer = offers.filter((offer) => offer.city.name === cityName);
 
   return (
     <section>
@@ -24,14 +26,14 @@ function MainPage(props) {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationList />
+              <LocationList filterOffer={filterOffer}/>
             </section>
           </div>
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in {name}</b>
+                <b className="places__found">{filterOffer.length} places to stay in {cityName}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -47,11 +49,11 @@ function MainPage(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <OfferList offers={offers} setSelectedPoint={setSelectedPoint}/>
+                <OfferList offers={filterOffer} setSelectedPoint={setSelectedPoint}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity points={offers} city={city} selectedPoint={selectedPoint}/>
+                  <MapCity points={filterOffer} city={city} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>
@@ -63,12 +65,12 @@ function MainPage(props) {
 }
 
 MainPage.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
-  name: PropTypes.string,
+  cityName: PropTypes.string,
+  offers: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({offers, name}) => ({
-  name,
+const mapStateToProps = ({cityName, offers}) => ({
+  cityName,
   offers,
 });
 

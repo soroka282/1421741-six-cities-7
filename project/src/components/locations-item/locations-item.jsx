@@ -4,13 +4,12 @@ import {connect} from 'react-redux';
 import { ActionCreator } from '../../store/action.js';
 
 function LocationItem(props) {
-  const {location, name, changingCity, fillingState} = props;
+  const {location, cityName, changingCity} = props;
   return (
     <li className="locations__item">
-      <a className={`locations__item-link tabs__item ${location === name && 'tabs__item--active'} `} href='/#'
+      <a className={`locations__item-link tabs__item ${location === cityName && 'tabs__item--active'} `} href='/#'
         onClick={() => {
           changingCity(location);
-          fillingState(location);
         }}
       >
         <span>{location}</span>
@@ -21,21 +20,17 @@ function LocationItem(props) {
 
 LocationItem.propTypes = {
   location: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  cityName: PropTypes.string.isRequired,
   changingCity: PropTypes.func.isRequired,
-  fillingState: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ( {name} ) => ({
-  name,
+const mapStateToProps = ( {cityName} ) => ({
+  cityName,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changingCity(name) {
-    dispatch(ActionCreator.changingCity(name));
-  },
-  fillingState(name) {
-    dispatch(ActionCreator.fillingState(name));
+  changingCity(cityName) {
+    dispatch(ActionCreator.changingCity(cityName));
   },
 });
 
