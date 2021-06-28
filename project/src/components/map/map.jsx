@@ -47,10 +47,11 @@ function MapCity(props) {
           .addTo(layerPoints);
       });
     }
+
     return () => {
       layerPoints.clearLayers();
     };
-
+    
   }, [map, points, selectedPoint]);
 
   return (

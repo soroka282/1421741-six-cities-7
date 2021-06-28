@@ -12,13 +12,9 @@ const SortType = {
 };
 
 export const ActionCreator = {
-  changingCity: (name) => ({
+  changingCity: (cityName) => ({
     type: ActionType.CHANGING_CITY,
-    payload: name,
-  }),
-  fillingState: (name) => ({
-    type: ActionType.FILLING_STATE,
-    payload: name,
+    payload: cityName,
   }),
   sortCard: (types, offers) => {
 
