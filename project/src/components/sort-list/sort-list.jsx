@@ -11,17 +11,16 @@ const Sort = [
 ];
 
 function SortList(props) {
-  const {showSortList, sortType, sortCard, offers} = props;
+  const {showSortList, sortType, sortCard} = props;
 
   return (
     <ul className={`places__options places__options--custom ${showSortList && 'places__options--opened'} `}>
-      {Sort.map((item, id) =>  <li className={`places__option ${item === sortType && 'places__option--active'} `} key={id++} tabIndex="0" onClick={() => sortCard(item, offers)}>{item}</li>)}
+      {Sort.map((item, id) =>  <li className={`places__option ${item === sortType && 'places__option--active'} `} key={id++} tabIndex="0" onClick={() => sortCard(item)}>{item}</li>)}
     </ul>
   );
 }
 
 SortList.propTypes = {
-  offers: PropTypes.array,
   showSortList: PropTypes.bool,
   sortType: PropTypes.string,
   sortCard: PropTypes.func,
@@ -33,8 +32,8 @@ const mapStateToProps = ({sortType, offers}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sortCard(types, offers) {
-    dispatch(ActionCreator.sortCard(types, offers));
+  sortCard(types) {
+    dispatch(ActionCreator.sortCard(types));
   },
 });
 

@@ -6,13 +6,16 @@ import LocationList from '../../components/locations-list/locations-list';
 import SortForm from '../../components/sort-form/sort-form';
 import MapCity from '../../components/map/map';
 import {connect} from 'react-redux';
-import {city} from '../../utils/setting';
+import {city} from '../../const';
+import {getSortCardElement} from '../../utils/common';
+
 
 function MainPage(props) {
-  const {cityName, offers} = props;
+  const {cityName, offers, sortType} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
 
   const filterOffer = offers.filter((offer) => offer.city.name === cityName);
+  const SortOffer = getSortCardElement(sortType, filterOffer);
 
   return (
     <section>
@@ -27,7 +30,7 @@ function MainPage(props) {
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
             <section className="locations container">
-              <LocationList filterOffer={filterOffer}/>
+              <LocationList />
             </section>
           </div>
           <div className="cities">
@@ -36,11 +39,11 @@ function MainPage(props) {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.length} places to stay in {cityName}</b>
                 <SortForm />
-                <OfferList offers={offers} setSelectedPoint={setSelectedPoint}/>
+                <OfferList offers={SortOffer} setSelectedPoint={setSelectedPoint}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity points={filterOffer} city={city} selectedPoint={selectedPoint}/>
+                  <MapCity points={SortOffer} city={city} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>
@@ -52,13 +55,15 @@ function MainPage(props) {
 }
 
 MainPage.propTypes = {
-  cityName: PropTypes.string,
+  cityName: PropTypes.string.isRequired,
   offers: PropTypes.array.isRequired,
+  sortType: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({cityName, offers}) => ({
+const mapStateToProps = ({cityName, offers, sortType}) => ({
   cityName,
   offers,
+  sortType,
 });
 
 export default connect(mapStateToProps)(MainPage);

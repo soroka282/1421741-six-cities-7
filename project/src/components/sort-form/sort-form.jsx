@@ -10,7 +10,7 @@ function SortForm({sortType}) {
 
   return (
     <form className="places__sorting" action="#" method="get" onMouseOver={ () => setShowSortList(true)} onMouseOut={ () => setShowSortList(false)}>
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0">
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">

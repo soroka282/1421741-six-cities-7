@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Header from '../../components/header/header.jsx';
@@ -9,7 +9,7 @@ import InsideList from '../../components/inside-list/inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearPlace from '../../components/near-place/near-place';
 import MapCity from '../../components/map/map';
-import {city} from '../../utils/setting';
+import {city} from '../../const';
 
 const ADDITIONAL_PLACES = 3;
 
@@ -30,8 +30,6 @@ function RoomPage(props) {
   } = filteredOffer;
 
   const offerSliced = offers.slice(0, ADDITIONAL_PLACES);
-
-  const [selectedPoint, setSelectedPoint] = useState(0);
 
   return (
     <div>
@@ -115,14 +113,14 @@ function RoomPage(props) {
               </div>
             </div>
             <section className="property__map map">
-              <MapCity points={offerSliced} city={city} selectedPoint={selectedPoint}/>
+              <MapCity points={offerSliced} city={city} />
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <NearPlace offers={offerSliced} setSelectedPoint={setSelectedPoint}/>
+                <NearPlace offers={offerSliced} />
               </div>
             </section>
           </div>

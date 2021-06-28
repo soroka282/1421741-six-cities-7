@@ -2,8 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {getRatingPercent} from '../../utils/common';
-import {CardType} from '../../utils/setting';
-import {Type, AppRoute} from '../../const';
+import {Type, AppRoute, CardType} from '../../const';
 
 function OfferCard(props) {
 
