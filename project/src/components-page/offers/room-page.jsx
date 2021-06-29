@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import Header from '../../components/header/header.jsx';
 import RoomGalleryList from '../../components/room-gallery-list/room-gallery-list';
 import FormComment from '../../components/form-comment/form-comment';
@@ -137,4 +138,9 @@ RoomPage.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default RoomPage;
+const mapStateToProps = ({offers, reviews}) => ({
+  offers,
+  reviews,
+});
+
+export default connect(mapStateToProps)(RoomPage);

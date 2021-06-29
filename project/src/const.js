@@ -15,3 +15,12 @@ export const FormatDate = {
   MONTH_YEAR: 'MMMM YYYY',
   DAY_MONTH_YEAR: 'YYYY-MM-DD',
 };
+
+export const LOCATIONS = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
