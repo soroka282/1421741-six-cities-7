@@ -57,7 +57,66 @@ export const CardType = {
 };
 
 export const city = {
-  lat: 52.38333,
-  lng:  4.9,
-  zoom: 12,
+  Paris : {
+    lat: 	48.864716,
+    lng: 2.349014,
+    zoom: 12,
+  },
+  Cologne: {
+    lat: 	50.937531,
+    lng: 6.960279,
+    zoom: 12,
+  },
+  Brussels: {
+    lat: 	50.850346,
+    lng: 4.351721,
+    zoom: 12,
+  },
+  Amsterdam: {
+    lat: 52.38333,
+    lng:  4.9,
+    zoom: 12,
+  },
+  Hamburg: {
+    lat: 53.551086,
+    lng:  9.993682,
+    zoom: 12,
+  },
+  Dusseldorf: {
+    lat: 51.224960,
+    lng:  6.775670,
+    zoom: 12,
+  },
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  OFFERS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+export const adaptToClient = (data) => {
+
+  const adaptedOffers = data.map((item) =>
+    ({
+      ...item,
+      isFavorite: item.is_favorite,
+      isPremium: item.is_premium,
+      previewImage: item.preview_image,
+      maxAdults: item.max_adults,
+    }),
+  );
+
+  delete adaptedOffers.preview_image;
+  delete adaptedOffers.is_favorite;
+  delete adaptedOffers.is_premium;
+  delete adaptedOffers.max_adults;
+
+  return adaptedOffers;
 };

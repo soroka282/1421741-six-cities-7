@@ -6,7 +6,7 @@ import LocationList from '../../components/locations-list/locations-list';
 import SortForm from '../../components/sort-form/sort-form';
 import MapCity from '../../components/map/map';
 import {connect} from 'react-redux';
-import {city} from '../../const';
+
 import {getSortCardElement} from '../../utils/common';
 
 
@@ -37,13 +37,13 @@ function MainPage(props) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} places to stay in {cityName}</b>
+                <b className="places__found">{filterOffer.length} places to stay in {cityName}</b>
                 <SortForm />
                 <OfferList offers={SortOffer} setSelectedPoint={setSelectedPoint}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity points={SortOffer} city={city} selectedPoint={selectedPoint}/>
+                  <MapCity points={SortOffer} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>

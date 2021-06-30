@@ -1,4 +1,4 @@
-import {SortType} from '../const';
+import {SortType, AuthorizationStatus} from '../const';
 
 const MAX_PERCENT = 100;
 const MAX_RATING = 5;
@@ -23,3 +23,6 @@ export const getSortCardElement = (types, offers) => {
       return offers;
   }
 };
+
+export const isCheckedAuth = (authorizationStatus) =>
+  authorizationStatus === AuthorizationStatus.UNKNOWN;

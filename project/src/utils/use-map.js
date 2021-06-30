@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 import L from 'leaflet';
 
-function useMap(mapRef, city) {
+function useMap(mapRef, city, cityName) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      const instance = L.map(mapRef.current).setView([city.lat, city.lng], city.zoom);
+      const instance = L.map(mapRef.current).setView([city[cityName].lat, city[cityName].lng], city[cityName].zoom);
       L.tileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
         {
@@ -17,7 +17,7 @@ function useMap(mapRef, city) {
 
       setMap(instance);
     }
-  }, [mapRef, map, city]);
+  }, [mapRef, map, city, cityName]);
 
   return map;
 }

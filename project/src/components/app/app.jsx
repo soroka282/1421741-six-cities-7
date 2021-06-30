@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MainPage from '../../components-page/main/main-page';
 import SignInPage from '../../components-page/login/login-page.jsx';
@@ -7,9 +8,18 @@ import FavoritePage from '../../components-page/favorites/favorites-page.jsx';
 import RoomPage from '../../components-page/offers/room-page.jsx';
 import NotFoundPage from '../../components-page/not-found/not-found-page.jsx';
 import {AppRoute} from '../../const.js';
+import {isCheckedAuth} from '../../utils/common';
+import LoadingPage from '../../components-page/loading-page/loading-page';
 
 function App(props) {
-  const {offers} = props;
+  const {offers, isDataLoaded, authorizationStatus} = props;
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <LoadingPage />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -44,6 +54,14 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object),
+  authorizationStatus: PropTypes.string.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  authorizationStatus: state.authorizationStatus,
+  isDataLoaded: state.isDataLoaded,
+});
+
+export default connect(mapStateToProps, null)(App);
