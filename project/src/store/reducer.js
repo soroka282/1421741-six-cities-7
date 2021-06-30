@@ -17,7 +17,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGING_CITY:
       return {
         ...state,
-        sortType: DEFAULT_SORT_TYPE,
         cityName: action.payload,
       };
     case ActionType.SORT_CARD:

@@ -9,7 +9,7 @@ function SortForm({sortType}) {
   const [showSortList, setShowSortList] = useState(false);
 
   return (
-    <form className="places__sorting" action="#" method="get" onMouseOver={ () => setShowSortList(true)} onMouseOut={ () => setShowSortList(false)}>
+    <form className="places__sorting" action="#" method="get" onClick={ () => showSortList === false ? setShowSortList(true) : setShowSortList(false)}>
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex="0">
         {sortType}
