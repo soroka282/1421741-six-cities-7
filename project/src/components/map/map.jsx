@@ -51,7 +51,6 @@ function MapCity(props) {
     return () => {
       layerPoints.clearLayers();
     };
-    
   }, [map, points, selectedPoint]);
 
   return (
