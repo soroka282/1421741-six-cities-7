@@ -97,26 +97,42 @@ export const AuthorizationStatus = {
 
 export const APIRoute = {
   OFFERS: '/hotels',
+  REVIEWS: '/comments/',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
 
-export const adaptToClient = (data) => {
+export const adaptedOffersToClient = (data) => {
 
-  const adaptedOffers = data.map((item) =>
+  const adapted = data.map((item) =>
     ({
       ...item,
       isFavorite: item.is_favorite,
       isPremium: item.is_premium,
       previewImage: item.preview_image,
       maxAdults: item.max_adults,
+      host : {
+        avatarUrl: item.host.avatar_url,
+        isPro: item.host.is_pro,
+        name: item.host.name,
+      },
     }),
   );
 
-  delete adaptedOffers.preview_image;
-  delete adaptedOffers.is_favorite;
-  delete adaptedOffers.is_premium;
-  delete adaptedOffers.max_adults;
+  return adapted;
+};
 
-  return adaptedOffers;
+export const adaptedReviewsToClient = (data) => {
+
+  const adapted = data.map((item) =>
+    ({
+      ...item,
+      user: {
+        isPro: item.user.is_pro,
+        avatarUrl: item.user.avatar_url,
+      },
+    }),
+  );
+
+  return adapted;
 };

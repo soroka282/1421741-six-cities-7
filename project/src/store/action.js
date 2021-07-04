@@ -1,10 +1,11 @@
-import {adaptToClient} from '../const';
+import {adaptedOffersToClient, adaptedReviewsToClient} from '../const';
 
 export const ActionType = {
   CHANGING_CITY: 'main/changingCity',
   FILLING_STATE: 'main/fillingState',
   SORT_CARD: 'sort/type',
   LOAD_OFFERS: 'data/hotels',
+  LOAD_REVIEWS: 'data/comments',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
 };
@@ -20,7 +21,11 @@ export const ActionCreator = {
   }),
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
-    payload: adaptToClient(offers),
+    payload: adaptedOffersToClient(offers),
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionType.LOAD_REVIEWS,
+    payload: adaptedReviewsToClient(reviews),
   }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,

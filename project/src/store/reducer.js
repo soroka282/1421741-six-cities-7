@@ -18,7 +18,6 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGING_CITY:
       return {
         ...state,
-        sortType: DEFAULT_SORT_TYPE,
         cityName: action.payload,
       };
     case ActionType.SORT_CARD:
@@ -31,6 +30,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
         isDataLoaded: true,
+      };
+    case ActionType.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
     case ActionType.REQUIRED_AUTHORIZATION:
       return {

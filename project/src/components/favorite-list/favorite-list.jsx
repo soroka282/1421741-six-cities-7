@@ -6,7 +6,7 @@ function FavoriteList(props) {
   const {offers} = props;
   return (
     <ul className="favorites__list">
-      { offers.map((offer) => offer.isFavorite && <FavoriteItem offer={offer} key={offer.id}/>)}
+      { offers.map((offer) => offer.isFavorite && <FavoriteItem offer={offer} key={offer.id} /> )}
     </ul>
   );
 }

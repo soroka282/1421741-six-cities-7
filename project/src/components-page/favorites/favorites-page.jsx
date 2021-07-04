@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Header from '../../components/header/header.jsx';
 import FavoriteList from '../../components/favorite-list/favorite-list.jsx';
 import { AppRoute } from '../../const';
+import NoFavoritePlaces from '../../components/no-favorite/no-favorite';
 
 function FavoritePage(props) {
   const {offers} = props;
@@ -21,6 +22,7 @@ function FavoritePage(props) {
           <div className="page__favorites-container container">
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
+              <NoFavoritePlaces />
               <FavoriteList offers={offers}/>
             </section>
           </div>

@@ -6,16 +6,13 @@ import LocationList from '../../components/locations-list/locations-list';
 import SortForm from '../../components/sort-form/sort-form';
 import MapCity from '../../components/map/map';
 import {connect} from 'react-redux';
-
 import {getSortCardElement} from '../../utils/common';
+import NoFreePlaces from '../../components/no-places/no-places';
 
 
 function MainPage(props) {
-  const {cityName, offers, sortType} = props;
+  const {cityName, sortOffers} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
-
-  const filterOffer = offers.filter((offer) => offer.city.name === cityName);
-  const SortOffer = getSortCardElement(sortType, filterOffer);
 
   return (
     <section>
@@ -37,13 +34,15 @@ function MainPage(props) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{filterOffer.length} places to stay in {cityName}</b>
+                <b className="places__found">{sortOffers.length} places to stay in {cityName}</b>
                 <SortForm />
-                <OfferList offers={SortOffer} setSelectedPoint={setSelectedPoint}/>
+                { sortOffers.length ?
+                  <OfferList offers={sortOffers} setSelectedPoint={setSelectedPoint}/>
+                  : <NoFreePlaces /> }
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity points={SortOffer} selectedPoint={selectedPoint}/>
+                  <MapCity points={sortOffers} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>
@@ -56,13 +55,13 @@ function MainPage(props) {
 
 MainPage.propTypes = {
   cityName: PropTypes.string.isRequired,
-  offers: PropTypes.array.isRequired,
-  sortType: PropTypes.string.isRequired,
+  sortOffers: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({cityName, offers, sortType}) => ({
   cityName,
   offers,
+  sortOffers: getSortCardElement(sortType, offers.filter((offer) => offer.city.name === cityName)),
   sortType,
 });
 

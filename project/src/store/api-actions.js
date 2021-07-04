@@ -6,6 +6,11 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
 );
 
+export const fetchReviewsList = (id) => (dispatch, _getState, api) => (
+  api.get(APIRoute.REVIEWS + id)
+    .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
