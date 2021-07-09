@@ -8,7 +8,7 @@ import {Provider} from 'react-redux';
 import {reducer} from './store/reducer';
 import {createAPI} from './api/api';
 import { ActionCreator } from './store/action';
-import {checkAuth, fetchOffersList} from './store/api-actions';
+import {checkAuth} from './store/api-actions';
 import {AuthorizationStatus} from './const';
 
 const api = createAPI(
@@ -18,7 +18,6 @@ const api = createAPI(
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 
 store.dispatch(checkAuth());
-store.dispatch(fetchOffersList());
 
 ReactDOM.render(
   <React.StrictMode>

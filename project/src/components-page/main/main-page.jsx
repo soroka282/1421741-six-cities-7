@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/header/header.jsx';
 import OfferList from '../../components/offer-list/offer-list';
@@ -8,11 +8,17 @@ import MapCity from '../../components/map/map';
 import {connect} from 'react-redux';
 import {getSortCardElement} from '../../utils/common';
 import NoFreePlaces from '../../components/no-places/no-places';
-
+import {fetchOffersList} from '../../store/api-actions';
+import { ActionCreator } from '../../store/action.js';
 
 function MainPage(props) {
-  const {cityName, sortOffers} = props;
+  const {cityName, sortOffers, loadOffersList, checkStatusLoad} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
+
+  useEffect(() => {
+    loadOffersList();
+    checkStatusLoad();
+  }, [loadOffersList, checkStatusLoad]);
 
   return (
     <section>
@@ -42,7 +48,7 @@ function MainPage(props) {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <MapCity points={sortOffers} selectedPoint={selectedPoint}/>
+                  <MapCity points={sortOffers} cityName={cityName} selectedPoint={selectedPoint}/>
                 </section>
               </div>
             </div>
@@ -56,6 +62,8 @@ function MainPage(props) {
 MainPage.propTypes = {
   cityName: PropTypes.string.isRequired,
   sortOffers: PropTypes.array.isRequired,
+  loadOffersList: PropTypes.func.isRequired,
+  checkStatusLoad: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({cityName, offers, sortType}) => ({
@@ -65,4 +73,13 @@ const mapStateToProps = ({cityName, offers, sortType}) => ({
   sortType,
 });
 
-export default connect(mapStateToProps)(MainPage);
+const mapDispatchToProps = (dispatch) => ({
+  loadOffersList() {
+    dispatch(fetchOffersList());
+  },
+  checkStatusLoad() {
+    dispatch(ActionCreator.checkStatusLoad());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

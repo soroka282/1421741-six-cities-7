@@ -29,6 +29,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+      };
+    case ActionType.CHECK_STATUS_LOAD:
+      return {
+        ...state,
         isDataLoaded: true,
       };
     case ActionType.LOAD_REVIEWS:

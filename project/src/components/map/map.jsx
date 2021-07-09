@@ -3,7 +3,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../utils/use-map';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import {city} from '../../const';
 
 
@@ -67,8 +66,4 @@ MapCity.propTypes = {
   cityName: PropTypes.string,
 };
 
-const mapStateToProps = ( {cityName} ) => ({
-  cityName,
-});
-
-export default connect(mapStateToProps)(MapCity);
+export default MapCity;

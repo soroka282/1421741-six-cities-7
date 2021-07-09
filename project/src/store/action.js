@@ -6,6 +6,7 @@ export const ActionType = {
   SORT_CARD: 'sort/type',
   LOAD_OFFERS: 'data/hotels',
   LOAD_REVIEWS: 'data/comments',
+  CHECK_STATUS_LOAD: 'data/checkStatusLoad',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
 };
@@ -26,6 +27,10 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: adaptedReviewsToClient(reviews),
+  }),
+  checkStatusLoad: (isDataLoaded) => ({
+    type: ActionType.CHECK_STATUS_LOAD,
+    payload: isDataLoaded,
   }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,

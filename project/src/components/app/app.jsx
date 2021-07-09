@@ -8,17 +8,9 @@ import FavoritePage from '../../components-page/favorites/favorites-page.jsx';
 import RoomPage from '../../components-page/offers/room-page.jsx';
 import NotFoundPage from '../../components-page/not-found/not-found-page.jsx';
 import {AppRoute} from '../../const.js';
-import {isCheckedAuth} from '../../utils/common';
-import LoadingPage from '../../components-page/loading-page/loading-page';
 
 function App(props) {
-  const {offers, isDataLoaded, authorizationStatus} = props;
-
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
-    return (
-      <LoadingPage />
-    );
-  }
+  const {offers} = props;
 
   return (
     <BrowserRouter>
@@ -54,14 +46,10 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object),
-  authorizationStatus: PropTypes.string.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  authorizationStatus: state.authorizationStatus,
-  isDataLoaded: state.isDataLoaded,
 });
 
 export default connect(mapStateToProps, null)(App);

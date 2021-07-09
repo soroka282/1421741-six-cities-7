@@ -15,7 +15,7 @@ import { fetchReviewsList } from '../../store/api-actions.js';
 const ADDITIONAL_PLACES = 3;
 
 function RoomPage(props) {
-  const {filteredOffer, reviews, loadReviewsList, sortOffers} = props;
+  const {filteredOffer, reviews, loadReviewsList, sortOffers, cityName} = props;
   const {
     isPremium,
     images,
@@ -119,7 +119,7 @@ function RoomPage(props) {
               </div>
             </div>
             <section className="property__map map">
-              <MapCity points={offerSliced} city={city} />
+              <MapCity points={offerSliced} cityName={cityName} city={city} />
             </section>
           </section>
           <div className="container">
@@ -141,6 +141,7 @@ RoomPage.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.object),
   loadReviewsList: PropTypes.func.isRequired,
   sortOffers: PropTypes.array.isRequired,
+  cityName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({offers, reviews, sortType, cityName}) => ({
