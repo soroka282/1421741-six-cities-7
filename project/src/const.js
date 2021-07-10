@@ -57,7 +57,82 @@ export const CardType = {
 };
 
 export const city = {
-  lat: 52.38333,
-  lng:  4.9,
-  zoom: 12,
+  Paris : {
+    lat: 	48.864716,
+    lng: 2.349014,
+    zoom: 12,
+  },
+  Cologne: {
+    lat: 	50.937531,
+    lng: 6.960279,
+    zoom: 12,
+  },
+  Brussels: {
+    lat: 	50.850346,
+    lng: 4.351721,
+    zoom: 12,
+  },
+  Amsterdam: {
+    lat: 52.38333,
+    lng:  4.9,
+    zoom: 12,
+  },
+  Hamburg: {
+    lat: 53.551086,
+    lng:  9.993682,
+    zoom: 12,
+  },
+  Dusseldorf: {
+    lat: 51.224960,
+    lng:  6.775670,
+    zoom: 12,
+  },
+};
+
+export const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export const APIRoute = {
+  OFFERS: '/hotels',
+  REVIEWS: '/comments/',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
+export const adaptedOffersToClient = (data) => {
+
+  const adapted = data.map((item) =>
+    ({
+      ...item,
+      isFavorite: item.is_favorite,
+      isPremium: item.is_premium,
+      previewImage: item.preview_image,
+      maxAdults: item.max_adults,
+      host : {
+        avatarUrl: item.host.avatar_url,
+        isPro: item.host.is_pro,
+        name: item.host.name,
+      },
+    }),
+  );
+
+  return adapted;
+};
+
+export const adaptedReviewsToClient = (data) => {
+
+  const adapted = data.map((item) =>
+    ({
+      ...item,
+      user: {
+        isPro: item.user.is_pro,
+        avatarUrl: item.user.avatar_url,
+      },
+    }),
+  );
+
+  return adapted;
 };

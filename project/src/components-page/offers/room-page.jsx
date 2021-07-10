@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Header from '../../components/header/header.jsx';
 import RoomGalleryList from '../../components/room-gallery-list/room-gallery-list';
 import FormComment from '../../components/form-comment/form-comment';
-import {getRatingPercent} from '../../utils/common';
+import {getRatingPercent, getSortCardElement} from '../../utils/common';
 import InsideList from '../../components/inside-list/inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearPlace from '../../components/near-place/near-place';
 import MapCity from '../../components/map/map';
 import {city} from '../../const';
+import { fetchReviewsList } from '../../store/api-actions.js';
 
 const ADDITIONAL_PLACES = 3;
 
 function RoomPage(props) {
-  const {filteredOffer, reviews, offers} = props;
+  const {filteredOffer, reviews, loadReviewsList, sortOffers, cityName} = props;
   const {
     isPremium,
     images,
@@ -27,9 +28,14 @@ function RoomPage(props) {
     maxAdults,
     host,
     description,
+    id,
   } = filteredOffer;
 
-  const offerSliced = offers.slice(0, ADDITIONAL_PLACES);
+  useEffect(() => {
+    loadReviewsList(id);
+  }, [id, loadReviewsList]);
+
+  const offerSliced = sortOffers.slice(0, ADDITIONAL_PLACES);
 
   return (
     <div>
@@ -107,13 +113,13 @@ function RoomPage(props) {
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews} />
+                  <ReviewsList reviews={reviews} filteredOffer={filteredOffer}/>
                   <FormComment />
                 </section>
               </div>
             </div>
             <section className="property__map map">
-              <MapCity points={offerSliced} city={city} />
+              <MapCity points={offerSliced} cityName={cityName} city={city} />
             </section>
           </section>
           <div className="container">
@@ -133,12 +139,23 @@ function RoomPage(props) {
 RoomPage.propTypes = {
   filteredOffer: PropTypes.object,
   reviews: PropTypes.arrayOf(PropTypes.object),
-  offers: PropTypes.arrayOf(PropTypes.object),
+  loadReviewsList: PropTypes.func.isRequired,
+  sortOffers: PropTypes.array.isRequired,
+  cityName: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({offers, reviews}) => ({
+const mapStateToProps = ({offers, reviews, sortType, cityName}) => ({
   offers,
   reviews,
+  sortType,
+  cityName,
+  sortOffers: getSortCardElement(sortType, offers.filter((offer) => offer.city.name === cityName)),
 });
 
-export default connect(mapStateToProps)(RoomPage);
+const mapDispatchToProps = (dispatch) => ({
+  loadReviewsList(id) {
+    dispatch(fetchReviewsList(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomPage);

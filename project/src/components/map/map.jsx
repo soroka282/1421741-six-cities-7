@@ -3,6 +3,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../utils/use-map';
 import PropTypes from 'prop-types';
+import {city} from '../../const';
+
 
 const ICON_URL = 'img/pin.svg';
 const ICON_ACTIVE_URL = 'img/pin-active.svg';
@@ -10,9 +12,9 @@ const ICON_SIZE = [30, 30];
 const ICON_ANCHOR = [15, 30];
 
 function MapCity(props) {
-  const {city, points, selectedPoint} = props;
+  const {points, selectedPoint, cityName} = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, city, cityName);
 
   useEffect(() => {
 
@@ -60,8 +62,8 @@ function MapCity(props) {
 
 MapCity.propTypes = {
   points: PropTypes.arrayOf(PropTypes.object),
-  city: PropTypes.object,
   selectedPoint: PropTypes.number,
+  cityName: PropTypes.string,
 };
 
 export default MapCity;

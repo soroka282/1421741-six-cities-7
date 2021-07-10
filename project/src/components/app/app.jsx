@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MainPage from '../../components-page/main/main-page';
 import SignInPage from '../../components-page/login/login-page.jsx';
@@ -10,6 +11,7 @@ import {AppRoute} from '../../const.js';
 
 function App(props) {
   const {offers} = props;
+
   return (
     <BrowserRouter>
       <Switch>
@@ -46,4 +48,8 @@ App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+export default connect(mapStateToProps, null)(App);
