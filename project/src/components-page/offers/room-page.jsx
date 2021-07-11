@@ -9,13 +9,13 @@ import InsideList from '../../components/inside-list/inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import NearPlace from '../../components/near-place/near-place';
 import MapCity from '../../components/map/map';
-import {city} from '../../const';
+import {city, AuthorizationStatus} from '../../const';
 import { fetchReviewsList } from '../../store/api-actions.js';
 
 const ADDITIONAL_PLACES = 3;
 
 function RoomPage(props) {
-  const {filteredOffer, reviews, loadReviewsList, sortOffers, cityName} = props;
+  const {filteredOffer, reviews, loadReviewsList, sortOffers, cityName, authorizationStatus} = props;
   const {
     isPremium,
     images,
@@ -114,7 +114,7 @@ function RoomPage(props) {
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                   <ReviewsList reviews={reviews} filteredOffer={filteredOffer}/>
-                  <FormComment />
+                  {authorizationStatus === AuthorizationStatus.AUTH ? <FormComment /> : ''}
                 </section>
               </div>
             </div>
@@ -142,9 +142,11 @@ RoomPage.propTypes = {
   loadReviewsList: PropTypes.func.isRequired,
   sortOffers: PropTypes.array.isRequired,
   cityName: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({offers, reviews, sortType, cityName}) => ({
+const mapStateToProps = ({offers, reviews, sortType, cityName, authorizationStatus}) => ({
+  authorizationStatus,
   offers,
   reviews,
   sortType,

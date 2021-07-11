@@ -30,7 +30,6 @@ OffersList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
   authorizationStatus: state.authorizationStatus,
   isDataLoaded: state.isDataLoaded,
 });

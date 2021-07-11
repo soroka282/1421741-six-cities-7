@@ -136,3 +136,14 @@ export const adaptedReviewsToClient = (data) => {
 
   return adapted;
 };
+
+export const adaptedUserInfoToClient = (data) => {
+
+  const adapted = data = {
+    ...data,
+    isPro: data.is_pro,
+    avatarUrl: data.avatar_url,
+  };
+
+  return adapted;
+};
