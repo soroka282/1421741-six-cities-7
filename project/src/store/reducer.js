@@ -11,6 +11,7 @@ const initialState = {
   offers: [],
   reviews: [],
   isDataLoaded: false,
+  authInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +30,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+      };
+    case ActionType.AUTH_INFO:
+      return {
+        ...state,
+        authInfo: action.payload,
       };
     case ActionType.CHECK_STATUS_LOAD:
       return {

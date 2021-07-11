@@ -1,4 +1,4 @@
-import {adaptedOffersToClient, adaptedReviewsToClient} from '../const';
+import {adaptedOffersToClient, adaptedReviewsToClient, adaptedUserInfoToClient} from '../const';
 
 export const ActionType = {
   CHANGING_CITY: 'main/changingCity',
@@ -9,6 +9,8 @@ export const ActionType = {
   CHECK_STATUS_LOAD: 'data/checkStatusLoad',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'user/redirectToRoute',
+  AUTH_INFO: 'user/authInfo',
 };
 
 export const ActionCreator = {
@@ -24,6 +26,10 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: adaptedOffersToClient(offers),
   }),
+  authInfo: (auth) => ({
+    type: ActionType.AUTH_INFO,
+    payload: adaptedUserInfoToClient(auth),
+  }),
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: adaptedReviewsToClient(reviews),
@@ -38,5 +44,9 @@ export const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };

@@ -1,8 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import {logout} from '../../store/api-actions';
 
-function Header() {
+function Header({onSubmit, authorizationStatus, authInfo}) {
   return (
     <header className="header">
       <div className="container">
@@ -14,16 +17,18 @@ function Header() {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                </Link>
-              </li>
+              {authorizationStatus === AuthorizationStatus.AUTH ?
+                <li className="header__nav-item user">
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                      <img style={{borderRadius: '100%'}} src='https://7.react.pages.academy/static/avatar/5.jpg' alt='user' />
+                    </div>
+                    <span className="header__user-name user__name">{authInfo.email}</span>
+                  </Link>
+                </li>  : ''}
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.LOG_IN}>
-                  <span className="header__signout">Sign out</span>
+                <Link className="header__nav-link" to={AppRoute.LOG_IN} onClick={onSubmit}>
+                  <span className="header__signout">{authorizationStatus === AuthorizationStatus.AUTH ? 'Sign out' : 'Sign in'}</span>
                 </Link>
               </li>
             </ul>
@@ -34,4 +39,21 @@ function Header() {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  authInfo: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = ({authorizationStatus, authInfo}) => ({
+  authorizationStatus,
+  authInfo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit() {
+    dispatch(logout());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
