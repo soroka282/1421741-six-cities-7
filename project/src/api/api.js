@@ -18,6 +18,17 @@ export const createAPI = (onUnauthorized) => {
     },
   });
 
+  axios.interceptors.request.use((config) => {
+
+    if (token !== '') {
+      config.headers['X-Token'] = `${token}`;
+    }
+
+    return config;
+  });
+
+  axios.interceptors.request.use(api);
+
   const onSuccess = (response) => response;
 
   const onFail = (err) => {

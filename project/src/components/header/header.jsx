@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import {logout} from '../../store/api-actions';
 
-function Header({onSubmit, authorizationStatus, authInfo}) {
+function Header({logOut, authorizationStatus, authInfo}) {
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +17,7 @@ function Header({onSubmit, authorizationStatus, authInfo}) {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              {authorizationStatus === AuthorizationStatus.AUTH ?
+              {authorizationStatus === AuthorizationStatus.AUTH &&
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -25,9 +25,9 @@ function Header({onSubmit, authorizationStatus, authInfo}) {
                     </div>
                     <span className="header__user-name user__name">{authInfo.email}</span>
                   </Link>
-                </li>  : ''}
+                </li>}
               <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.LOG_IN} onClick={onSubmit}>
+                <Link className="header__nav-link" to={AppRoute.LOG_IN} onClick={logOut}>
                   <span className="header__signout">{authorizationStatus === AuthorizationStatus.AUTH ? 'Sign out' : 'Sign in'}</span>
                 </Link>
               </li>
@@ -40,7 +40,7 @@ function Header({onSubmit, authorizationStatus, authInfo}) {
 }
 
 Header.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   authInfo: PropTypes.object.isRequired,
 };
@@ -51,7 +51,7 @@ const mapStateToProps = ({authorizationStatus, authInfo}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit() {
+  logOut() {
     dispatch(logout());
   },
 });

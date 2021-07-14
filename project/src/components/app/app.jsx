@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import MainPage from '../../components-page/main/main-page';
@@ -12,7 +11,6 @@ import browserHistory from '../app/browser-history';
 import {AppRoute} from '../../const.js';
 
 function App(props) {
-  const {offers} = props;
 
   return (
     <BrowserRouter history={browserHistory}>
@@ -34,13 +32,10 @@ function App(props) {
         >
         </PrivateRoute>
 
-        <Route exact path={`${AppRoute.ROOM}:id`} render={({match}) => {
-          const id = match.params.id;
-          const filteredOffer = offers.find((offerElem) => offerElem.id === Number(id));
-          return <RoomPage filteredOffer={filteredOffer} />;
-        }}
-        >
+        <Route exact path={`${AppRoute.ROOM}:id`} >
+          <RoomPage/>
         </Route>
+
         <Route>
           <NotFoundPage />
         </Route>
@@ -51,12 +46,12 @@ function App(props) {
   );
 }
 
-App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
-};
-
 const mapStateToProps = (state) => ({
   offers: state.offers,
 });
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = (dispatch) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

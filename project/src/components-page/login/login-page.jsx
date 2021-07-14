@@ -12,13 +12,13 @@ function SignInPage(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    return authorization({
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
   };
 
-  const {cityName, onSubmit} = props;
+  const {cityName, authorization} = props;
   return (
     <div>
       <div style={{display: 'none'}}>
@@ -60,7 +60,7 @@ function SignInPage(props) {
 
 SignInPage.propTypes = {
   cityName: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  authorization: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({cityName}) => ({
@@ -68,7 +68,7 @@ const mapStateToProps = ({cityName}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
+  authorization(authData) {
     dispatch(login(authData));
   },
 });

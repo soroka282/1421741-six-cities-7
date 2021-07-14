@@ -147,3 +147,21 @@ export const adaptedUserInfoToClient = (data) => {
 
   return adapted;
 };
+
+export const adaptedOfferClient = (data) => {
+
+  const adapted = data = {
+    ...data,
+    isFavorite: data.is_favorite,
+    isPremium: data.is_premium,
+    previewImage: data.preview_image,
+    maxAdults: data.max_adults,
+    host : {
+      avatarUrl: data.host.avatar_url,
+      isPro: data.host.is_pro,
+      name: data.host.name,
+    },
+  };
+
+  return adapted;
+};

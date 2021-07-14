@@ -1,4 +1,7 @@
-import {adaptedOffersToClient, adaptedReviewsToClient, adaptedUserInfoToClient} from '../const';
+import {
+  adaptedOffersToClient,
+  adaptedReviewsToClient
+} from '../const';
 
 export const ActionType = {
   CHANGING_CITY: 'main/changingCity',
@@ -11,6 +14,8 @@ export const ActionType = {
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'user/redirectToRoute',
   AUTH_INFO: 'user/authInfo',
+  LOAD_OFFER: 'data/loadOffer',
+  LOAD_OFFER_NEARBY: 'data/loadOfferNearby',
 };
 
 export const ActionCreator = {
@@ -26,10 +31,19 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: adaptedOffersToClient(offers),
   }),
+  loadOffer: (offer) => ({
+    type: ActionType.LOAD_OFFER,
+    payload: adaptedOffersToClient([offer]),
+  }),
+  loadOfferNearby: (offerNearby) => ({
+    type: ActionType.LOAD_OFFER_NEARBY,
+    payload: adaptedOffersToClient(offerNearby),
+  }),
   authInfo: (auth) => ({
     type: ActionType.AUTH_INFO,
-    payload: adaptedUserInfoToClient(auth),
+    payload: auth,
   }),
+
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: adaptedReviewsToClient(reviews),
