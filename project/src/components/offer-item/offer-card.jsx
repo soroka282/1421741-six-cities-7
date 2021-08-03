@@ -1,12 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getRatingPercent} from '../../utils/common';
 import {Type, AppRoute, CardType} from '../../const';
+import { sendFavorites } from '../../store/api-actions';
 
 function OfferCard(props) {
 
-  const {offer, type, setSelectedPoint} = props;
+  const {offer, type, setSelectedPoint, userFavorite} = props;
 
   const listItemHoverHandler = () => {
     if (!setSelectedPoint) {
@@ -34,7 +36,15 @@ function OfferCard(props) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={offer.isFavorite ? 'place-card__bookmark-button--active button place-card__bookmark-button' : 'place-card__bookmark-button button'} type="button">
+          <button className={offer.isFavorite ? 'place-card__bookmark-button--active button place-card__bookmark-button' : 'place-card__bookmark-button button'} onClick={({target})=> {
+
+            userFavorite({
+              id: offer.id,
+              status: + !offer.isFavorite,
+            });
+
+          }} type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -60,7 +70,13 @@ OfferCard.propTypes = {
   offer: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
   setSelectedPoint: PropTypes.func,
+  userFavorite: PropTypes.func,
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  userFavorite(data) {
+    dispatch(sendFavorites(data));
+  },
+});
 
-export default OfferCard;
+export default connect(null, mapDispatchToProps)(OfferCard);

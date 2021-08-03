@@ -1,32 +1,30 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import OfferCard from '../../components/offer-item/offer-card';
-import {Type} from '../../const';
+import FavoritePlaces from '../../components/favorite-places/favorite-places';
 import PropTypes from 'prop-types';
 
 function FavoriteItem(props) {
-  const {offer} = props;
+  const {offers, city} = props;
 
   return(
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link className="locations__item-link" to="#/">
-            <span>{offer.city.name}</span>
+            <span>{city}</span>
           </Link>
         </div>
       </div>
       <ul className="favorites__places">
-        <li style={{listStyle: 'none'}}>
-          <OfferCard offer={offer} type={Type.FAVORITE}/>
-        </li>
+        {offers.map((offer, id) => offer.city.name === city && offer.isFavorite && < FavoritePlaces key={++id} offer={offer} />)}
       </ul>
     </li>
   );
 }
 
 FavoriteItem.propTypes = {
-  offer: PropTypes.object.isRequired,
+  offers: PropTypes.array.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 export default FavoriteItem;

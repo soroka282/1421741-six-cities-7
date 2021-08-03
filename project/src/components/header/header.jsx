@@ -45,9 +45,9 @@ Header.propTypes = {
   authInfo: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({authorizationStatus, authInfo}) => ({
-  authorizationStatus,
-  authInfo,
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  authInfo: USER.authInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({

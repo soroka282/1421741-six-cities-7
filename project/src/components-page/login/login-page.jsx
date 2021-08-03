@@ -63,8 +63,8 @@ SignInPage.propTypes = {
   authorization: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({cityName}) => ({
-  cityName,
+const mapStateToProps = ({PROCESS}) => ({
+  cityName: PROCESS.cityName,
 });
 
 const mapDispatchToProps = (dispatch) => ({

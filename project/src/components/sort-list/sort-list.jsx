@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { ActionCreator } from '../../store/action.js';
+import { sortCard } from '../../store/action.js';
 
 const Sort = [
   'Popular',
@@ -11,11 +11,11 @@ const Sort = [
 ];
 
 function SortList(props) {
-  const {showSortList, sortType, sortCard} = props;
+  const {showSortList, sortType, getSortCard} = props;
 
   return (
     <ul className={`places__options places__options--custom ${showSortList && 'places__options--opened'} `}>
-      {Sort.map((item, id) =>  <li className={`places__option ${item === sortType && 'places__option--active'} `} key={id++} tabIndex="0" onClick={() => sortCard(item)}>{item}</li>)}
+      {Sort.map((item, id) =>  <li className={`places__option ${item === sortType && 'places__option--active'} `} key={id++} tabIndex="0" onClick={() => getSortCard(item)}>{item}</li>)}
     </ul>
   );
 }
@@ -23,7 +23,7 @@ function SortList(props) {
 SortList.propTypes = {
   showSortList: PropTypes.bool,
   sortType: PropTypes.string,
-  sortCard: PropTypes.func,
+  getSortCard: PropTypes.func,
 };
 
 const mapStateToProps = ({sortType, offers}) => ({
@@ -32,8 +32,8 @@ const mapStateToProps = ({sortType, offers}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sortCard(types) {
-    dispatch(ActionCreator.sortCard(types));
+  getSortCard(types) {
+    dispatch(sortCard(types));
   },
 });
 

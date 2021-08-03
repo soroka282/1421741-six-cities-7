@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { ActionCreator } from '../../store/action.js';
+import { changingCity } from '../../store/action.js';
 
 function LocationItem(props) {
-  const {location, cityName, changingCity} = props;
+  const {location, cityName, getChangingCity} = props;
   return (
     <li className="locations__item">
       <a className={`locations__item-link tabs__item ${location === cityName && 'tabs__item--active'} `} href='/#'
         onClick={() => {
-          changingCity(location);
+          getChangingCity(location);
         }}
       >
         <span>{location}</span>
@@ -21,16 +21,16 @@ function LocationItem(props) {
 LocationItem.propTypes = {
   location: PropTypes.string.isRequired,
   cityName: PropTypes.string.isRequired,
-  changingCity: PropTypes.func.isRequired,
+  getChangingCity: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ( {cityName} ) => ({
-  cityName,
+const mapStateToProps = ( {PROCESS} ) => ({
+  cityName: PROCESS.cityName,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changingCity(cityName) {
-    dispatch(ActionCreator.changingCity(cityName));
+  getChangingCity(cityName) {
+    dispatch(changingCity(cityName));
   },
 });
 

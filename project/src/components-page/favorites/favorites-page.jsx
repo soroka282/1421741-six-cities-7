@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Header from '../../components/header/header.jsx';
-import FavoriteList from '../../components/favorite-list/favorite-list.jsx';
 import { AppRoute } from '../../const';
-import NoFavoritePlaces from '../../components/no-favorite/no-favorite';
+import { fetchFavorites } from '../../store/api-actions.js';
+import FavoriteList from '../../components/favorite-list/favorite-list.jsx';
 
 function FavoritePage(props) {
-  const {offers} = props;
+  const {loadFavorites, offers} = props;
+
+  useEffect(() => {
+    loadFavorites();
+  }, [loadFavorites]);
 
   return(
     <div>
@@ -22,8 +26,9 @@ function FavoritePage(props) {
           <div className="page__favorites-container container">
             <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
-              <NoFavoritePlaces />
-              <FavoriteList offers={offers}/>
+
+              <FavoriteList offers={offers} />
+
             </section>
           </div>
         </main>
@@ -38,11 +43,19 @@ function FavoritePage(props) {
 }
 
 FavoritePage.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.object),
+  loadFavorites: PropTypes.func,
+  offers: PropTypes.array,
 };
 
-const mapStateToProps = ({offers}) => ({
-  offers,
+const mapStateToProps = ({DATA}) => ({
+  offers: DATA.offers,
+  favorites: DATA.favorites,
 });
 
-export default connect(mapStateToProps)(FavoritePage);
+const mapDispatchToProps = (dispatch) => ({
+  loadFavorites() {
+    dispatch(fetchFavorites());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoritePage);

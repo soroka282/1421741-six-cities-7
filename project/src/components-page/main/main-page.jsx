@@ -9,16 +9,16 @@ import {connect} from 'react-redux';
 import {getSortCardElement} from '../../utils/common';
 import NoFreePlaces from '../../components/no-places/no-places';
 import {fetchOffersList} from '../../store/api-actions';
-import { ActionCreator } from '../../store/action.js';
+import { checkStatusLoad } from '../../store/action.js';
 
 function MainPage(props) {
-  const {cityName, sortOffers, loadOffersList, checkStatusLoad} = props;
+  const {cityName, sortOffers, loadOffersList, getCheckStatusLoad} = props;
   const [selectedPoint, setSelectedPoint] = useState(0);
 
   useEffect(() => {
     loadOffersList();
-    checkStatusLoad();
-  }, [loadOffersList, checkStatusLoad]);
+    getCheckStatusLoad();
+  }, [loadOffersList, getCheckStatusLoad]);
 
   return (
     <section>
@@ -37,21 +37,21 @@ function MainPage(props) {
             </section>
           </div>
           <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{sortOffers.length} places to stay in {cityName}</b>
-                <SortForm />
-                { sortOffers.length ?
+            { sortOffers.length ?
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{sortOffers.length} places to stay in {cityName}</b>
+                  <SortForm />
                   <OfferList offers={sortOffers} setSelectedPoint={setSelectedPoint}/>
-                  : <NoFreePlaces /> }
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <MapCity points={sortOffers} cityName={cityName} selectedPoint={selectedPoint}/>
                 </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <MapCity points={sortOffers} cityName={cityName} selectedPoint={selectedPoint}/>
+                  </section>
+                </div>
               </div>
-            </div>
+              : <NoFreePlaces /> }
           </div>
         </main>
       </div>
@@ -63,22 +63,22 @@ MainPage.propTypes = {
   cityName: PropTypes.string.isRequired,
   sortOffers: PropTypes.array.isRequired,
   loadOffersList: PropTypes.func.isRequired,
-  checkStatusLoad: PropTypes.func.isRequired,
+  getCheckStatusLoad: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({cityName, offers, sortType}) => ({
-  cityName,
-  offers,
-  sortOffers: getSortCardElement(sortType, offers.filter((offer) => offer.city.name === cityName)),
-  sortType,
+const mapStateToProps = ({DATA, PROCESS}) => ({
+  cityName: PROCESS.cityName,
+  offers: DATA.offers,
+  sortOffers: getSortCardElement(PROCESS.sortType, DATA.offers.filter((offer) => offer.city.name === PROCESS.cityName)),
+  sortType: PROCESS.sortType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadOffersList() {
     dispatch(fetchOffersList());
   },
-  checkStatusLoad() {
-    dispatch(ActionCreator.checkStatusLoad());
+  getCheckStatusLoad() {
+    dispatch(checkStatusLoad());
   },
 });
 
